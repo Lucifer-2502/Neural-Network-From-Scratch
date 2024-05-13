@@ -1,35 +1,15 @@
 # Neural Networks from Scratch
-In this tutorial, you will learn the fundamentals of how you can build neural networks without the help of the deep learning frameworks, and instead by using NumPy.
-
-<p align="center">
-	<img src="./figs/deep_nn-1.png" width="800"/>
-</p>
-
-*This article was first published by [CS565600 Deep Learning](https://nthu-datalab.github.io/ml/index.html) at National Tsing Hua University, but authored by Chia-Hung Yuan and DataLab.*
-
-Creating complex neural networks with different architectures in Python should be a standard practice for any Machine Learning Engineer and Data Scientist. But a genuine understanding of how a neural network works is equally as valuable. This is what we aim to expand on in this article, the very fundamentals on how we can build neural networks, without the help of the frameworks that make it easy for us.
-
 ## Usage
 You can train the model by executing the following command:
 ```bash
 python train.py
 ```
-It takes about 10s on CPU to achieve ~98% test accuracy on MNIST dataset.
+It takes about 10s on CPU to achieve ~96%  test accuracy on MNIST dataset.
 
-You can also choose the activation function and optimizer to use. We have implemented ReLU and sigmoid activation functions. Momentum and SGD are available as an optimizer. For example,
 
-```bash
-python train.py --activation sigmoid --optimizer momentum --l_rate 4
-```
-- `--activation`: `relu` or `sigmoid`
-- `--optimizer`: `sgd` or `momentum`
-- `--batch_size`: batch sized used for training
-- `--l_rate`: learning rate
-- `--beta`: beta in momentum optimizer
+For Jupyter notebook, please refer to [`NN-from-Scratch.ipynb`](https://github.com/Lucifer-2502/Neural-Network-From-Scratch/blob/main/NN_from_Scratch.ipynb).
 
-For Jupyter notebook, please refer to [`NN-from-Scratch.ipynb`](https://github.com/lionelmessi6410/Neural-Networks-from-Scratch/blob/main/NN-from-Scratch.ipynb).
 
-# Tutorial
 ## Model architecture
 We are building a basic deep neural network with **3 layers** in total: **1 input layer**, **1 hidden layers** and **1 output layer**. All layers will be fully connected. We implement ReLU and sigmoid activation functions. SGD and Momentum optimizer are available.
 
@@ -97,7 +77,7 @@ The forward pass consists of the dot operation in NumPy, which turns out to be j
 
 To get through each layer, we sequentially apply the dot operation, followed by the sigmoid/relu activation function. In the last layer we use the softmax activation function, since we wish to have probabilities of each class, so that we can measure how well our current forward pass performs.
 
-<img src="./figs/backprop_algo_forward.png" width="300"/>
+
 
 ```python
 def feed_forward(self, x):
@@ -135,9 +115,8 @@ Note: A numerical stable version of the softmax function was chosen, you can rea
 ## Backpropagation
 The backward pass is hard to get right, because there are so many sizes and operations that have to align, for all the operations to be successful. Here is the full function for the backward pass; we will go through each weight update below.
 
-<img src="./figs/backprop_algo_backward.png" width="400"/>
 
-For people who are interested in the magic of backpropagation, please refer to [this nice article](https://mlfromscratch.com/neural-networks-explained/). For people who want to deep dive into methmetics and understand thoroughly, please refer to [NTHU CS565600 Deep Learning](https://nthu-datalab.github.io/ml/index.html). Here is [slide](https://nthu-datalab.github.io/ml/slides/10_NN_Design.pdf) and [video](https://www.youtube.com/watch?v=uYRUbvyKXAo&list=PLlPcwHqLqJDk3A0qFgFUDlyALzaF44NTL&index=4&ab_channel=Shan-HungWu) for backpropagation.
+
 
 ```python
 def back_propagate(self, y, output):
@@ -224,11 +203,3 @@ dnn.train(x_train, y_train, x_val, y_val)
 ## Good exercises in NumPy
 You might have noticed that the code is very readable, but takes up a lot of space and could be optimized to run in loops. Here is a chance to optimize and improve the code. For example, you can optimize the forward and backward pass, such that they run in a for loop in each function. This makes the code easier to modify and possibly easier to maintain. 
 
-More challenging exercises including implement any other activation function from this overview of activation functions, and remember to implement the derivatives as well. Different optimizers, e.g. Adam, RMSProp, etc, are also worth to try.
-
-## Reference 
-1. [CS565600 Deep Learning](https://nthu-datalab.github.io/ml/index.html), National Tsing Hua University
-2. [Building a Neural Network from Scratch: Part 1](https://jonathanweisberg.org/post/A%20Neural%20Network%20from%20Scratch%20-%20Part%201/)
-3. [Building a Neural Network from Scratch: Part 2](https://jonathanweisberg.org/post/A%20Neural%20Network%20from%20Scratch%20-%20Part%202/)
-4. [Neural networks from scratch](https://developer.ibm.com/technologies/artificial-intelligence/articles/neural-networks-from-scratch), IBM Developer
-5. [The Softmax Function Derivative (Part 1)](https://aimatters.wordpress.com/2019/06/17/the-softmax-function-derivative/)
